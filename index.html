@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
 <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
-<title>Point Dynamics</title>
+<title>Point ISLAND Dynamics</title>
 <style>
 body {
   font-family: 'Ubuntu', sans-serif;
@@ -445,7 +445,7 @@ input[type="file"]:focus {
       <div class="achievement-box" id="ach1000-box"><p style="position: relative;left: 30px; width: 250px;">  1000 Tokens Collected</p></div>
       <div class="achievement-box" id="ach10000-box"><p style="position: relative;left: 30px; width: 250px;">10000 Tokens Collected</p></div>
       <div class="achievement-box" id="ach20000-box"><p style="position: relative;left: 30px; width: 250px;">20000 Tokens Collected</p></div>
-      <div class="achievement-box" id="ach50000-box"><p style="position: relative;left: 30px; width: 250px;">50000 Tokens Collected</p></div>
+      <div class="achievement-box" id="ach50000-box" style="display: none;"><p style="display: none; position: relative;left: 30px; width: 250px;">50000 Tokens Collected</p></div>
     </div>
 
     <div style="position: fixed; top: 250px; left: 25%;"class="button-container">
@@ -463,11 +463,10 @@ input[type="file"]:focus {
   <div id="loading-line"></div>
 </div>
 <div id="game-card">
-<p>v.2.10.5</p>
+<p>v.i2.10.5</p>
 <button class="dice-button"onclick="rollDice()"></button>
 <button class="setting-button" onclick="settings()">⬣</button>
 </div>
-<div id="lowerbar" style="display: none;"></div>
 <div id="sidebar">
 <p>Sidebar</p>
 <div id="saved-points"></div>
@@ -829,8 +828,13 @@ function forceThunderSound(){
 function default1() {
   background = 10
 }
+savedPoints = parseInt(localStorage.getItem('savedPoints')) || 0;
+seeds = parseInt(localStorage.getItem('seeds')) || 0;
+sidePoints = parseInt(localStorage.getItem('sidePoints')) || 0;
+
 function rollDice() {
   updateDisplay()
+  
   var diceButton = document.querySelector('.dice-button')
   diceButton.classList.remove('fire')
   diceButton.classList.remove('gold')
@@ -873,6 +877,9 @@ if (savedPoints >= 50000 && !ach50000 && !cheats) {
   document.getElementById('ach50000-box').classList.add('unlocked');
   localStorage.setItem('ach50000', 'true');
 }
+localStorage.setItem('savedPoints', savedPoints.toString());
+localStorage.setItem('seeds', seeds.toString());
+localStorage.setItem('sidePoints', sidePoints.toString());
 
 if (localStorage.getItem('ach1000') === 'true' && !cheats) {
   ach1000 = true;
@@ -900,14 +907,7 @@ if (localStorage.getItem('ach50000') === 'true' && !cheats) {
   }
 
   console.log(`Rounds: ${rollCount}`)
-  bg()
-  bgRounds = bgRounds - 1
-  if (unlocked1) {
-    default1()
-  }
-  if (bgRounds <= 0) {
-    background === 0
-  }
+
   if (rollCount % 10 === 0) {
   savedPoints = savedPoints + sidePoints
   sidePoints = 0
@@ -928,7 +928,7 @@ function tubes1() {
 function bg() {
 const gameCard = document.getElementById('game-card')
 const sidebar = document.getElementById('sidebar')
-if (background === 1 && document.getElementById('lowerbar').style.display === 'none') {
+if (background === 0) {
 if (!autoclicker) {
   loading()
 } else {
@@ -937,10 +937,9 @@ if (!autoclicker) {
   gameCard.style.backgroundColor = '#E87D1E'
   sidebar.style.backgroundColor = '#E87D1E'
   document.body.style.backgroundColor = '#EBF8F9'
-  document.getElementById('lowerbar').style.display = 'block'
   document.getElementById('area').innerText = `Mesa`
 }
-if (background === 1 && bgRounds <= 0 && document.getElementById('lowerbar').style.display === 'block') {
+if (background === 1 && bgRounds <= 0) {
 if (!autoclicker) {
   loading()
 } else {
@@ -950,7 +949,6 @@ if (!autoclicker) {
   gameCard.style.backgroundColor = '#F8F5EA'
   sidebar.style.backgroundColor = '#F8F5EA'
   document.body.style.backgroundColor = '#FDFAF4'
-  document.getElementById('lowerbar').style.display = 'none'
   background = 0
   document.getElementById('area').innerText = `Flat`
 }}
@@ -1099,6 +1097,7 @@ function resetAllPointsAndSeeds() {
 
   console.log("All points and seeds have been reset.");
 }
+
 </script>
 </body>
 </html>
