@@ -408,6 +408,7 @@ input[type="file"]:focus {
 </style>
 <script src="software.js"></script>
 </head>
+  <link rel="manifest" href="manifest.json">
 <body>
   <canvas id="rainCanvas"></canvas>
   <div id="mod-container" style="display: none;">
@@ -475,6 +476,9 @@ input[type="file"]:focus {
 <div id="seeds"></div>
 </div>
 <script>
+    if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('service-worker.js');
+}
   let gameVer = 2.105
   let terminalOffsetX = 0
   let terminalOffsetY = 0
