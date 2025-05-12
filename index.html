@@ -1101,7 +1101,33 @@ function resetAllPointsAndSeeds() {
 
   console.log("All points and seeds have been reset.");
 }
+function notifyPoints(points) {
+  if (!('Notification' in window)) {
+    console.log('This browser does not support notifications.');
+    return;
+  }
 
+  if (Notification.permission === 'granted') {
+    showNotification(points);
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        showNotification(points);
+      }
+    });
+  }
+}
+
+function showNotification(points) {
+  const notification = new Notification("Point Dynamics Update", {
+    body: `You have ${points} points! Want to upgrade your multiplier?`,
+    icon: "dot.jpg"
+  });
+  notification.onclick = function () {
+    window.focus();
+  };
+}
+  notifyPoints(35000);
 </script>
 </body>
 </html>
