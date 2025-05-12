@@ -835,7 +835,9 @@ function default1() {
 savedPoints = parseInt(localStorage.getItem('savedPoints')) || 0;
 seeds = parseInt(localStorage.getItem('seeds')) || 0;
 sidePoints = parseInt(localStorage.getItem('sidePoints')) || 0;
-
+tube = parseInt(localStorage.getItem('tube')) || 0;
+multiplier = parseInt(localStorage.getItem('multiplier')) || 0;
+nextCost = parseInt(localStorage.getItem('nextCost')) || 0;
 function rollDice() {
   updateDisplay()
   
@@ -884,7 +886,10 @@ if (savedPoints >= 50000 && !ach50000 && !cheats) {
 localStorage.setItem('savedPoints', savedPoints.toString());
 localStorage.setItem('seeds', seeds.toString());
 localStorage.setItem('sidePoints', sidePoints.toString());
-
+localStorage.setItem('tube', tube.toString());
+localStorage.setItem('multiplier', multiplier.toString());
+localStorage.setItem('nextCost', nextCost.toString());
+  
 if (localStorage.getItem('ach1000') === 'true' && !cheats) {
   ach1000 = true;
   document.getElementById('ach1000-box').classList.add('unlocked');
