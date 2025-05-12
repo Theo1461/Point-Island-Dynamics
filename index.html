@@ -1101,35 +1101,42 @@ function resetAllPointsAndSeeds() {
 
   console.log("All points and seeds have been reset.");
 }
-function notifyPoints(sidePoints) {
+function notifyPoints(savedPoints) {
   if (!('Notification' in window)) {
     console.log('This browser does not support notifications.');
     return;
   }
 
   if (Notification.permission === 'granted') {
-    showNotification(sidePoints);
+    showNotification(savedPoints);
   } else if (Notification.permission !== 'denied') {
     Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
-        showNotification(sidePoints);
+        showNotification(savedPoints);
       }
     });
   }
 }
 
-function showNotification(points) {
-  const notification = new Notification("Point Dynamics Update", {
-    body: `You have ${sidePoints} side points! You should get more!`,
+function showNotification(savedPoints) {
+  const notification = new Notification("Point Dynamics", {
+    body: `You have ${savedPoints} tokens! You should get more!`,
     icon: "dot.jpg"
   });
   notification.onclick = function () {
     window.focus();
   };
 }
+
   setTimeout(() => {
-  notifyPoints(sidePoints);
-}, 10000);
+  notifyPoints(savedPoints);
+}, 300000);
+  setTimeout(() => {
+  notifyPoints(savedPoints);
+}, 900000);
+    setTimeout(() => {
+  notifyPoints(savedPoints);
+}, 3600000);
 </script>
 </body>
 </html>
