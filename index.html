@@ -611,6 +611,8 @@ upgradeButton.addEventListener('click', () => {
   savedPoints -= nextCost
   multiplier = multiplier + 3
   nextCost = nextCost + nextCost
+  localStorage.setItem('multiplier', multiplier.toString());
+  localStorage.setItem('nextCost', nextCost.toString());
   updateDisplay()
   alert(`Upgrade successful! New Multiplier: x${multiplier}`);
 } else if (savedPoints <= nextCost){
@@ -887,8 +889,7 @@ localStorage.setItem('savedPoints', savedPoints.toString());
 localStorage.setItem('seeds', seeds.toString());
 localStorage.setItem('sidePoints', sidePoints.toString());
 localStorage.setItem('tube', tube.toString());
-localStorage.setItem('multiplier', multiplier.toString());
-localStorage.setItem('nextCost', nextCost.toString());
+
   
 if (localStorage.getItem('ach1000') === 'true' && !cheats) {
   ach1000 = true;
